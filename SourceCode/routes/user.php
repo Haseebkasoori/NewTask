@@ -34,22 +34,16 @@ use App\Http\Controllers\API\userController;
     //MIDDLEWARE Checking Reqeust, valid or not
 Route::middleware([JwtAuth::class])->group(function(){
 
-
-    //Get specific user
-    Route::get('GetUserById', [UserController::class, 'GetUserById']);
-
-    //Get All user
-    Route::get('GetUser', [UserController::class, 'GetAllUsers']);
-
     //Update
     Route::put('updateUser', [UserController::class, 'UpdateUser']);
-
+    //Update Password
+    Route::put('updateUserPassword', [UserController::class, 'updateUserPassword']);
+    //TwoFactorAuth
+    Route::post('TwoFactorAuth', [UserController::class, 'TwoFactorAuth'])->middleware([TwoFactorAuth::class]);
+    //KYC
+    Route::post('UserKYC', [UserController::class, 'UserKYC']);
     //Delete
     Route::delete('deleteUser', [UserController::class, 'DeleteUser']);
-
-    //Search User
-    Route::get('searchName', [UserController::class, 'SearchUser']);
-
-    //LOGOUT
+ //LOGOUT
     Route::get('logout', [UserController::class, 'logout']);
 });

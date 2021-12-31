@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class VarifyEmailReqeust extends FormRequest
+class TwoFactorAuthRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,14 +26,15 @@ class VarifyEmailReqeust extends FormRequest
     public function rules()
     {
         return [
-            'email' => "exists:users",
-            'email_varified_token' => "exists:users",
+            'otp_mail' => 'required|string|exists:two_factor_auth,otp_mail',
+            'otp_sms' => 'required|string|exists:two_factor_auth,otp_sms',
+            'otp_authenticator' => 'required|string|exists:two_factor_auth,otp_authenticator',
         ];
     }
-
     public function failedValidation(Validator $validator)
     {
         $data['message']=$validator->errors();
-        throw new HttpResponseException(response()->error($data, 404));
+        throw new HttpResponseException(response()->error($data, 400));
     }
+
 }

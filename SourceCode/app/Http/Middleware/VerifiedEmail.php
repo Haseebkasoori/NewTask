@@ -25,23 +25,17 @@ class VerifiedEmail
             $user_data=User::where('email',$request_data['email'])->first();
             if(!empty($user_data->email_verified_at)){
                 if ($user_data->email_verified_at===null) {
-
-                    $data['error']="You didn't confirm your email yet!!";
-                    $data['message']="Someting went Worng";
-                    return response()->error($data,400);
+                    throw new \Exception("You didn't confirm your email yet!!");
                 }else{
 
                     request()->merge(['user_data'=>$user_data]);
                     return $next($request);
                 }
             }else{
-                $data['error']="Email not Register";
-                $data['message']="Someting went Worng";
-                return response()->error($data,400);
+                throw new \Exception("Email not Register");
             }
         }catch(\Exception $ex){
-            $data['error']=$ex->getMessage();
-            $data['message']="Someting went Worng";
+            $data['message']=$ex->getMessage();
             return response()->error($data,500);
         }
     }

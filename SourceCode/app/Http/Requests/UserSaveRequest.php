@@ -37,8 +37,7 @@ class UserSaveRequest extends FormRequest
 
     public function failedValidation(Validator $validator)
     {
-        $data['error']=$validator->errors();
-        $data['message']="Someting went Worng";
+        $data['message']=$validator->errors();
         throw new HttpResponseException(response()->error($data, 404));
     }
 }

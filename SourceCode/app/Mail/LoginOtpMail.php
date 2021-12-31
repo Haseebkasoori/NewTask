@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ForgotPassword extends Mailable
+class LoginOtpMail extends Mailable
 {
 
     use Queueable, SerializesModels;
@@ -31,6 +31,6 @@ class ForgotPassword extends Mailable
     {
         //return $this->view('view.name');
 
-        return $this->subject("New Password for CCE")->view("emails.forgotPassword");
+        return $this->subject("Otp for CCE login ")->view("emails.LoginOtpMail");
     }
 }

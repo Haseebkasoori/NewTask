@@ -25,9 +25,9 @@ class JwtAuthentication
         $payload_info= array(
         "iss" => "localhost",
         "iat" => time(),
-        "nbf" => time()+10,
-        "exp" => time()+1800,
-        "aud" => "People Attach",
+        "nbf" => time()+2,
+        "exp" => time()+(60*60),
+        "aud" => "CCE",
         "data" =>$user_data
         );
         try {

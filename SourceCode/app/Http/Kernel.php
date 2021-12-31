@@ -65,9 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'JwtAuth' => \App\Http\Middleware\JwtMiddleware::class,
         'VerifiedEmail' => \App\Http\Middleware\VerifiedEmail::class,
-        'FriendReqeustSendOrNot' => \App\Http\Middleware\FriendReqeustSendOrNot::class,
-        'FriendsOrNot' => \App\Http\Middleware\FriendsOrNot::class,
-        'FriendRequetPendingOrNot' => \App\Http\Middleware\FriendRequetPendingOrNot::class,
-        'PostOwnerOrNot' => \App\Http\Middleware\PostOwnerOrNot::class,
+        'TwoFactorAuth' => \App\Http\Middleware\TwoFactorAuth::class,
+
     ];
 }

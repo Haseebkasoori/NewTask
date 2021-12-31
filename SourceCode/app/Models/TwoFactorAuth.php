@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Http\Resources\UserResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FriendRequest extends Model
+class TwoFactorAuth extends Model
 {
     use HasFactory;
 
@@ -15,9 +16,10 @@ class FriendRequest extends Model
      * @var string[]
      */
     protected $fillable = [
-        'sender_id',
-        'reciever_id',
-        'status',
+        'otp_mail',
+        'otp_sms',
+        'otp_authenticator',
+        'user_id',
     ];
 
     /**
@@ -34,22 +36,17 @@ class FriendRequest extends Model
      * The Table name.
      *
      */
-    protected $table = 'friend_request';
+    protected $table = 'two_factor_auth';
 
-
-    /**
-     * Get the Sender for the blog User.
-     */
-    public function Sender()
-    {
-        return $this->belongsTo(User::class,'sender_id','id');
-    }
 
     /**
      * Get the comments for the blog User.
      */
-    public function Reciever()
+    public function User()
     {
-        return $this->belongsTo(User::class,'reciever_id','id');
+        return $this->belongsTo(User::class);
     }
+
+
+
 }

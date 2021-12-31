@@ -2,11 +2,12 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use PhpParser\Node\Expr\FuncCall;
 
-class VarifyEmailReqeust extends FormRequest
+class UpdatePasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,14 +27,14 @@ class VarifyEmailReqeust extends FormRequest
     public function rules()
     {
         return [
-            'email' => "exists:users",
-            'email_varified_token' => "exists:users",
+            'old_password' => 'required|string|old_password',
+            'password' => 'required|string|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/|confirmed',
         ];
     }
-
     public function failedValidation(Validator $validator)
     {
         $data['message']=$validator->errors();
-        throw new HttpResponseException(response()->error($data, 404));
+        throw new HttpResponseException(response()->error($data, 400));
     }
+
 }

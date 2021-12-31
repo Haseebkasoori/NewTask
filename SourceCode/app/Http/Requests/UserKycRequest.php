@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class UserDeleteRequest extends FormRequest
+class UserKycRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,14 +26,16 @@ class UserDeleteRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id'=>'exists:users,id'
+            'profile_image' => 'string|valid_image',
+            'utility_bill_image' => 'string|valid_image',
+            'cnic_image' => 'string|valid_image',
+            'consignment' => 'required|in:true',
+
         ];
     }
-
     public function failedValidation(Validator $validator)
     {
-        $data['error']=$validator->errors();
-        $data['message']="Someting went Worng";
-        throw new HttpResponseException(response()->error($data, 404));
+        $data['message']=$validator->errors();
+        throw new HttpResponseException(response()->error($data, 400));
     }
 }

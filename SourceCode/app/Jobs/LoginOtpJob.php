@@ -2,23 +2,20 @@
 
 namespace App\Jobs;
 
-use App\Mail\EmailVarification;
+use App\Mail\LoginOtpMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 
 
-class EmailVarificationMailJob implements ShouldQueue
+class LoginOtpJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     public $details;
-
-
     /**
      * Create a new job instance.
      *
@@ -26,8 +23,7 @@ class EmailVarificationMailJob implements ShouldQueue
      */
     public function __construct($details)
     {
-        $this->details = $details;
-
+        $this->details=$details;
     }
 
     /**
@@ -37,7 +33,7 @@ class EmailVarificationMailJob implements ShouldQueue
      */
     public function handle()
     {
-        $email = new EmailVarification($this->details);
+        $email = new LoginOtpMail($this->details);
         Mail::to($this->details['email'])->send($email);
     }
 }

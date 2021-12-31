@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Http\Resources\UserResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Posts extends Model
+class UserKyc extends Model
 {
     use HasFactory;
 
@@ -15,10 +16,11 @@ class Posts extends Model
      * @var string[]
      */
     protected $fillable = [
-        'text',
-        'attachment',
+        'profile_image',
+        'utility_bill_image',
+        'cnic_image',
+        'consignment',
         'user_id',
-        'visibility',
     ];
 
     /**
@@ -35,7 +37,7 @@ class Posts extends Model
      * The Table name.
      *
      */
-    protected $table = 'posts';
+    protected $table = 'two_factor_auth';
 
 
     /**
@@ -46,12 +48,6 @@ class Posts extends Model
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Get the comments for the blog User.
-     */
-    public function Comments()
-    {
-        return $this->hasMany(Comments::class,'post_id','id');
-    }
+
 
 }

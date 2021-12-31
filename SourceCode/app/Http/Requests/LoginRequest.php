@@ -27,7 +27,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => 'required|email|exists:users|string',
-            'password'=> 'required|string|min:8|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/', //must be at least 8 characters in length, at least one lowercase and uppercase letter,at least one digit and a special character
+            'password'=> 'required|old_password|string|min:8|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/', //must be at least 8 characters in length, at least one lowercase and uppercase letter,at least one digit and a special character
         ];
     }
 
@@ -35,8 +35,7 @@ class LoginRequest extends FormRequest
 
     public function failedValidation(Validator $validator)
     {
-        $data['error']=$validator->errors();
-        $data['message']="Someting went Worng";
+        $data['message']=$validator->errors();
         throw new HttpResponseException(response()->error($data, 404));
     }
 }
