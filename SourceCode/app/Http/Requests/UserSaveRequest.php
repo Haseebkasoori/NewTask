@@ -29,7 +29,6 @@ class UserSaveRequest extends FormRequest
             'user_name' => 'required|string|unique:users|max:100',
             'email' => 'required|email|unique:users|string|max:100',
             'gender' => 'required|string|in:Male,Female,Other',
-            'date_of_birth' => 'required|date_format:Y-m-d|before:-18 years',
             'password'=> 'required|confirmed|string|min:8|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/', //must be at least 8 characters in length, at least one lowercase and uppercase letter,at least one digit and a special character
             'phone_number' => 'required|string:11',
         ];
