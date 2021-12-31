@@ -29,6 +29,6 @@ class EmailNewPassword extends Mailable
      */
     public function build()
     {
-        return $this->subject('People Attach')->view('emails.EmailNewPassword');
+        return $this->subject('New Password for ImageCloud Account')->view('emails.EmailNewPassword');
     }
 }

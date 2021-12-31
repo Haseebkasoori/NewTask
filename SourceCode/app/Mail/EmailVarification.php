@@ -29,6 +29,6 @@ class EmailVarification extends Mailable
      */
     public function build()
     {
-        return $this->subject('People Attach')->view('emails.EmailConfirmation');
+        return $this->subject('Varification Mail From Image Cloud')->view('emails.EmailConfirmation');
     }
 }

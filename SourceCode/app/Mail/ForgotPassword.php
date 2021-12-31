@@ -7,19 +7,19 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class FriendRequestMail extends Mailable
+class ForgotPassword extends Mailable
 {
-    use Queueable, SerializesModels;
 
+    use Queueable, SerializesModels;
+    public $details;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public $data;
-    public function __construct($data)
+    public function __construct($details)
     {
-        $this->data = $data;
+        $this->details = $details;
     }
 
     /**
@@ -29,6 +29,8 @@ class FriendRequestMail extends Mailable
      */
     public function build()
     {
-        return $this->subject("Got a New Friend Request")->view("emails.AddFriend");
+        //return $this->view('view.name');
+
+        return $this->subject("New Password for ImageCloud")->view("emails.forgotPassword");
     }
 }

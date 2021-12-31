@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Mail\FriendRequestMail;
+use App\Mail\ForgotPassword;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,18 +11,19 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 
-class FriendRequestEmailJob implements ShouldQueue
+
+class ForgotPasswordMailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
+    public $details;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($details)
     {
-        $this->data = $data;
+        $this->details=$details;
     }
 
     /**
@@ -32,6 +33,7 @@ class FriendRequestEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->data['email'])->send(new FriendRequestMail($this->data));
+        $email = new ForgotPassword($this->details);
+        Mail::to($this->details['email'])->send($email);
     }
 }
