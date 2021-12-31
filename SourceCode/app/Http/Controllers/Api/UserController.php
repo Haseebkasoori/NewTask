@@ -347,9 +347,9 @@ class UserController extends BaseController
 
     public function UserKYC(UserKycRequest $request)
     {
-        // try{
+        try{
 
-            // \File::makeDirectory(public_path('storage/users/'.request()->decoded_data->data->id),0777,true);
+            \File::makeDirectory(public_path('storage/users/'.request()->decoded_data->data->id),0777,true);
             $kyc= new UserKyc();
 
             foreach ($request->all() as $key => $value) {
@@ -366,9 +366,8 @@ class UserController extends BaseController
             $response_data['data']= null;
             $response_data['message']='Successfully Uploaded wait for Verificaiton!!';
             return response()->success($response_data,200);
-        }
-        catch (\Exception $e) {
-            return response()->error(['message'=>"Have some Problem in Deleting Account"],404);
+        }catch (\Exception $e) {
+            return response()->error(['message'=>"Have some Problem please Try Again"],404);
         }
 
     }
